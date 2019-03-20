@@ -24,8 +24,11 @@ import { MemberCardComponent } from './members/member-card/member-card.component
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { MemberDetailRsolver } from './_resolvers/member-detail.resolver';
 import { MemberListRsolver } from './_resolvers/member-list.resolver';
+import { MemberEditComponent } from './members/member-edit/member-edit.component';
+import { MemberEditRsolver } from './_resolvers/member-edit.resolver';
+import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 
-export function tokenGetter(){
+export function tokenGetter() {
    return localStorage.getItem('token');
 }
 @NgModule({
@@ -38,7 +41,8 @@ export function tokenGetter(){
       ListsComponent,
       MessagesComponent,
       MemberCardComponent,
-      MemberDetailComponent
+      MemberDetailComponent,
+      MemberEditComponent
    ],
    imports: [
       BrowserModule,
@@ -50,7 +54,7 @@ export function tokenGetter(){
       RouterModule.forRoot(appRoutes),
       JwtModule.forRoot({
          config: {
-            tokenGetter:tokenGetter,
+            tokenGetter: tokenGetter,
             whitelistedDomains: ['localhost:5000'],
             blacklistedRoutes: ['localhost:5000/api/auth']
          }
@@ -63,7 +67,9 @@ export function tokenGetter(){
       AuthGuard,
       UserService,
       MemberDetailRsolver,
-      MemberListRsolver
+      MemberListRsolver,
+      MemberEditRsolver,
+      PreventUnsavedChanges
    ],
    bootstrap: [
       AppComponent
